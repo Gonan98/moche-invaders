@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Invader03
       objectReference: {fileID: 0}
+    - target: {fileID: 3641663407556850863, guid: ade96144846556d4b96f23e7474aaab1, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3964239979192344478, guid: ade96144846556d4b96f23e7474aaab1, type: 3}
       propertyPath: animationTime
       value: 0.5

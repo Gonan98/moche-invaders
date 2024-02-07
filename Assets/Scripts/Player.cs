@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float speed = 5f;
+    [SerializeField]
+    private float speed = 4f;
     [SerializeField]
     private GameObject bulletPrefab;
     private GameObject bullet;
@@ -27,6 +28,10 @@ public class Player : MonoBehaviour
         {
             position.x += speed * Time.deltaTime;
         }
+
+        Vector2 leftEdge = Camera.main.ViewportToWorldPoint(Vector2.zero);
+        Vector2 rightEdge = Camera.main.ViewportToWorldPoint(Vector2.right);
+        position.x = Mathf.Clamp(position.x, leftEdge.x + 1, rightEdge.x - 1);
 
         transform.position = position;
 

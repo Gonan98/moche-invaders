@@ -16,6 +16,9 @@ public class Invaders : MonoBehaviour
     private int columns = 11;
     private float speed = 1f;
     private Vector3 direction = Vector3.right;
+    [SerializeField]
+    private Bullet bulletPrefab;
+    private float bulletSpawnRate = 1f;
 
     private void Awake() 
     {
@@ -32,6 +35,11 @@ public class Invaders : MonoBehaviour
                 invader.transform.localPosition = new Vector3(center.x + (j * paddingX), center.y + (i * paddingY), 0f);
             }
         }
+    }
+
+    private void Start()
+    {
+        InvokeRepeating(nameof(Attack), bulletSpawnRate, bulletSpawnRate);    
     }
 
     private void Update() {
@@ -62,7 +70,34 @@ public class Invaders : MonoBehaviour
         direction = new Vector3(-direction.x, 0f, 0f);
 
         Vector3 position = transform.position;
-        position.y -= 1f;
+        position.y -= 0.5f;
         transform.position = position;
+    }
+
+    private void Attack()
+    {
+        int invadersAlive = GetAliveCount();
+        if (invadersAlive == 0) return;
+
+        foreach (Transform invader in transform)
+        {
+            if (!invader.gameObject.activeInHierarchy) continue;
+
+            if (Random.value < (1f / invadersAlive))
+            {
+                Instantiate(bulletPrefab, invader.position, Quaternion.identity);
+            }
+        }
+    }
+
+    public int GetAliveCount()
+    {
+        int count = 0;
+        foreach (Transform invader in transform)
+        {
+            if (invader.gameObject.activeSelf)
+                count++;
+        }
+        return count;
     }
 }
