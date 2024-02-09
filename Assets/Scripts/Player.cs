@@ -6,7 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 4f;
+    private float speed = 2f;
     [SerializeField]
     private GameObject bulletPrefab;
     private GameObject bullet;
@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Missile") ||
             other.gameObject.layer == LayerMask.NameToLayer("Invader"))
         {
-
+            
         }
     }
 }

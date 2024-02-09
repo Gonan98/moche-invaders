@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6e7394496a8a2f84aa191f1f05c4cacf
+guid: 5381c3bc134f25a4fa0b79f831e04030
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -21,7 +21,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: barrera_0
+      name: piso4_0
       rect:
         serializedVersion: 2
-        x: 288
-        y: 448
-        width: 448
-        height: 192
+        x: 384
+        y: 608
+        width: 256
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70c24da3fae18664281a247269d387b8
-      internalID: -201482824
+      spriteID: 42cb2dbd4e7c26c4db3a67f40a796e3d
+      internalID: -208903863
       vertices: []
       indices: 
       edges: []
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      barrera_0: -201482824
+      piso4_0: -208903863
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

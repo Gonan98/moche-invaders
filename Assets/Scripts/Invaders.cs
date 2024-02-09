@@ -25,7 +25,7 @@ public class Invaders : MonoBehaviour
         float width = paddingX * (columns - 1);
         float height = paddingY * (rows - 1);
 
-        Vector2 center = new Vector2(-width / 2, -height / 2);
+        Vector2 center = new(-width / 2, -height / 2);
 
         for (int i = 0; i < rows; i++)
         {

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9e7eb7fc6d8a2fd4cbbee14697c5b8c1
+guid: 01741ccb1ce7eb34bb8ea986f169cd8f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -108,7 +108,28 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: piso6_0
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 672
+        width: 128
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8a46663305620349836cf3ca91db119
+      internalID: 1475549359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +140,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      piso6_0: 1475549359
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
