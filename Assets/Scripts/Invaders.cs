@@ -11,21 +11,32 @@ public class Invaders : MonoBehaviour
     [SerializeField]
     private float paddingY = 2f;
     [SerializeField]
-    private int rows = 3;
+    private int rows = 6;
     [SerializeField]
-    private int columns = 11;
+    private int columns = 9;
     private float speed = 1f;
+    private float minimumSpeed;
+    private float maxSpeed;
+    public int Rows => rows;
+    public int Columns => columns;
+    public float MaxSpeed => maxSpeed;
+    public float MiniumSpeed => minimumSpeed;
     private Vector3 direction = Vector3.right;
+    private Vector3 initialPosition;
     [SerializeField]
     private Bullet bulletPrefab;
-    private float bulletSpawnRate = 1f;
+    private readonly float bulletSpawnRate = 1f;
 
     private void Awake() 
     {
+        minimumSpeed = speed;
+        maxSpeed = 5f;
+        initialPosition = transform.position;
+
         float width = paddingX * (columns - 1);
         float height = paddingY * (rows - 1);
 
-        Vector2 center = new(-width / 2, -height / 2);
+        Vector2 center = new(-width * 0.5f, -height * 0.5f);
 
         for (int i = 0; i < rows; i++)
         {
@@ -99,5 +110,20 @@ public class Invaders : MonoBehaviour
                 count++;
         }
         return count;
+    }
+
+    public void ResetInvaders()
+    {
+        direction = Vector2.right;
+        transform.position = initialPosition;
+        speed = minimumSpeed;
+
+        foreach (Transform invader in transform)
+            invader.gameObject.SetActive(true);
+    }
+
+    public void SetSpeed(float speed)
+    {
+        this.speed = speed;
     }
 }

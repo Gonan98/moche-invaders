@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Missile") ||
             other.gameObject.layer == LayerMask.NameToLayer("Invader"))
         {
-            
+            GameManager.Instance.OnPlayerKilled(this);
         }
     }
 }
