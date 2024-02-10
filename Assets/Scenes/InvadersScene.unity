@@ -1457,7 +1457,7 @@ MonoBehaviour:
   - {fileID: 4542188344305549793, guid: 072da612e49e6364988fb1aa94ff07ec, type: 3}
   - {fileID: 4542188344305549793, guid: 072da612e49e6364988fb1aa94ff07ec, type: 3}
   paddingX: 1.25
-  paddingY: 1
+  paddingY: 0.75
   rows: 6
   columns: 9
   bulletPrefab: {fileID: 3289074152632886200, guid: bcbdac7f482f3904dab7360686d12e7d, type: 3}

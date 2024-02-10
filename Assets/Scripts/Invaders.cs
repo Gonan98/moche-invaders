@@ -14,7 +14,7 @@ public class Invaders : MonoBehaviour
     private int rows = 6;
     [SerializeField]
     private int columns = 9;
-    private float speed = 1f;
+    private float speed = 0.25f;
     private float minimumSpeed;
     private float maxSpeed;
     public int Rows => rows;
@@ -30,7 +30,7 @@ public class Invaders : MonoBehaviour
     private void Awake() 
     {
         minimumSpeed = speed;
-        maxSpeed = 5f;
+        maxSpeed = 4f;
         initialPosition = transform.position;
 
         float width = paddingX * (columns - 1);
