@@ -96,7 +96,8 @@ public class Invaders : MonoBehaviour
 
             if (Random.value < (1f / invadersAlive))
             {
-                Instantiate(bulletPrefab, invader.position, Quaternion.identity);
+                var bullet = Instantiate(bulletPrefab, invader.position, Quaternion.identity);
+                IncreaseBulletSpeed(bullet);
             }
         }
     }
@@ -122,8 +123,18 @@ public class Invaders : MonoBehaviour
             invader.gameObject.SetActive(true);
     }
 
-    public void SetSpeed(float speed)
+    public void IncreaseSpeed()
     {
-        this.speed = speed;
+        int invadersAlive = GetAliveCount();
+        float slope = (maxSpeed - minimumSpeed)/(1 - rows * columns);
+        speed = slope * (invadersAlive - 1) + maxSpeed;
+    }
+
+    public void IncreaseBulletSpeed(Bullet bullet)
+    {
+        int invadersAlive = GetAliveCount();
+        float slope = (bullet.MaxSpeed - bullet.MiniumSpeed)/(1 - rows * columns);
+        float result = slope * (invadersAlive - 1) + bullet.MaxSpeed;
+        bullet.SetSpeed(result);
     }
 }

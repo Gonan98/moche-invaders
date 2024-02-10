@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private Text scoreText;
-    [SerializeField] private LivesIcon livesIcon;
+    //[SerializeField] private LivesIcon livesIcon;
+    [SerializeField] private GameObject footer;
+    [SerializeField] private GameObject playerIcon;
     private Player player;
     private Invaders invaders;
     private Barrier[] barriers;
@@ -45,23 +47,31 @@ public class GameManager : MonoBehaviour
             NewGame();
     }
 
-    public void OnInvaderKilled(Invader invader)
-    {
-        invader.gameObject.SetActive(false);
-        invaders.SetSpeed(NewSpeed(invaders.GetAliveCount()));
-        SetScore(score + invader.Score);
-
-        if (invaders.GetAliveCount() == 0)
-            NewRound();
-    }
 
     private void NewGame()
     {
         gameOverUI.SetActive(false);
         SetScore(0);
         SetLives(3);
-        livesIcon.Setup(lives);
+        GeneratePlayerIcons();
         NewRound();
+    }
+
+    private void GeneratePlayerIcons()
+    {
+        for (int i = 0; i < lives; i++)
+        {
+            var icon = Instantiate(playerIcon, footer.transform);
+            icon.transform.localPosition = new Vector3(i * 5, -1f, 0f);
+        }
+    }
+
+    private void RemovePlayerIcon()
+    {
+        if (footer.transform.childCount == 1) return;
+
+        var lastChild = footer.transform.GetChild(footer.transform.childCount - 1);
+        Destroy(lastChild.gameObject);
     }
 
     private void NewRound()
@@ -87,7 +97,8 @@ public class GameManager : MonoBehaviour
         Vector2 position = player.transform.position;
         position.x = 0f;
         player.transform.position = position;
-        player.gameObject.SetActive(true);
+        player.Revive();
+        //player.gameObject.SetActive(true);
     }
 
     private void GameOver()
@@ -107,14 +118,27 @@ public class GameManager : MonoBehaviour
         this.lives = Mathf.Max(lives, 0);
     }
 
+    public void OnInvaderKilled(Invader invader)
+    {
+        invader.gameObject.SetActive(false);
+        invaders.IncreaseSpeed();
+        //invaders.IncreaseBulletSpeed();
+
+        SetScore(score + invader.Score);
+
+        if (invaders.GetAliveCount() == 0)
+            NewRound();
+    }
+
     public void OnPlayerKilled(Player player)
     {
         SetLives(lives - 1);
-        livesIcon.Remove();
-        player.gameObject.SetActive(false);
+        RemovePlayerIcon();
+        //livesIcon.Remove();
+        //player.gameObject.SetActive(false);
 
         if (lives > 0)
-            Invoke(nameof(NewRound), 1f);
+            Invoke(nameof(NewRound), 2f);
         else
             GameOver();
     }
@@ -126,13 +150,5 @@ public class GameManager : MonoBehaviour
             invaders.gameObject.SetActive(false);
             OnPlayerKilled(player);
         }
-    }
-
-    private float NewSpeed(int invadersCount)
-    {
-        float slope = (invaders.MaxSpeed - invaders.MiniumSpeed)/(1 - invaders.Rows * invaders.Columns);
-        float result = slope * (invadersCount - 1) + invaders.MaxSpeed;
-        Debug.Log(result);
-        return result;
     }
 }

@@ -8,10 +8,9 @@ public class Invader : MonoBehaviour
     private Sprite[] animationSprites;
     [SerializeField]
     private Sprite deathSprite;
-    [SerializeField]
-    private float animationTime;
     private SpriteRenderer spriteRenderer;
-    private int animationFrame;
+    private float animationTime = 1f;
+    private int animationFrame = 0;
     private bool alive = true;
     private int score = 10;
     public int Score => score;
@@ -21,7 +20,7 @@ public class Invader : MonoBehaviour
     }
 
     private void Start() {
-        InvokeRepeating(nameof(AnimateSprite), animationFrame, animationTime);
+        InvokeRepeating(nameof(AnimateSprite), animationTime, 0.5f);
     }
 
     void AnimateSprite()
