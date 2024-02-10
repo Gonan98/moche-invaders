@@ -30,7 +30,7 @@ public class Invaders : MonoBehaviour
     private void Awake() 
     {
         minimumSpeed = speed;
-        maxSpeed = 4f;
+        maxSpeed = 3f;
         initialPosition = transform.position;
 
         float width = paddingX * (columns - 1);

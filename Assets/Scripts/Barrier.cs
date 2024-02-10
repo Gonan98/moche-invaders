@@ -5,7 +5,7 @@ using UnityEngine;
 public class Barrier : MonoBehaviour
 {
     private BoxCollider2D[] colliders;
-    private void Start() {
+    private void Awake() {
         colliders = GetComponents<BoxCollider2D>();
     }
 
@@ -16,7 +16,7 @@ public class Barrier : MonoBehaviour
             child.gameObject.SetActive(true);
         }
 
-        foreach (Collider2D collider in colliders)
+        foreach (var collider in colliders)
         {
             collider.enabled = true;
         }

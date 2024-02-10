@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private Text scoreText;
-    [SerializeField] private Text livesText;
+    [SerializeField] private LivesIcon livesIcon;
     private Player player;
     private Invaders invaders;
     private Barrier[] barriers;
@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
         gameOverUI.SetActive(false);
         SetScore(0);
         SetLives(3);
+        livesIcon.Setup(lives);
         NewRound();
     }
 
@@ -72,6 +73,11 @@ public class GameManager : MonoBehaviour
         {
             barrier.Reset();
         }
+
+        var projectiles = FindObjectsOfType<Bullet>();
+
+        foreach (Bullet projectile in projectiles)
+            Destroy(projectile.gameObject);
 
         Respawn();
     }
@@ -99,12 +105,12 @@ public class GameManager : MonoBehaviour
     private void SetLives(int lives)
     {
         this.lives = Mathf.Max(lives, 0);
-        livesText.text = this.lives.ToString();
     }
 
     public void OnPlayerKilled(Player player)
     {
         SetLives(lives - 1);
+        livesIcon.Remove();
         player.gameObject.SetActive(false);
 
         if (lives > 0)
