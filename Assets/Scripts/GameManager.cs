@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private Text scoreText;
     //[SerializeField] private LivesIcon livesIcon;
-    [SerializeField] private GameObject footer;
-    [SerializeField] private GameObject playerIcon;
+    [SerializeField] private GameObject bound;
+    [SerializeField] private GameObject playerLiveIcon;
     private Player player;
     private Invaders invaders;
     private Barrier[] barriers;
@@ -61,16 +61,16 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < lives; i++)
         {
-            var icon = Instantiate(playerIcon, footer.transform);
-            icon.transform.localPosition = new Vector3(i * 5, -1f, 0f);
+            var icon = Instantiate(playerLiveIcon, bound.transform);
+            icon.transform.localPosition = new Vector3(i * 48, 0f, 0f);
         }
     }
 
     private void RemovePlayerIcon()
     {
-        if (footer.transform.childCount == 1) return;
+        if (bound.transform.childCount == 0) return;
 
-        var lastChild = footer.transform.GetChild(footer.transform.childCount - 1);
+        var lastChild = bound.transform.GetChild(bound.transform.childCount - 1);
         Destroy(lastChild.gameObject);
     }
 
@@ -122,7 +122,6 @@ public class GameManager : MonoBehaviour
     {
         invader.gameObject.SetActive(false);
         invaders.IncreaseSpeed();
-        //invaders.IncreaseBulletSpeed();
 
         SetScore(score + invader.Score);
 

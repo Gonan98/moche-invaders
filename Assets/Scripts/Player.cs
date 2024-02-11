@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
     private void Animate()
     {
         if (alive) return;
-        //Debug.Log("Animando Player");
+
         animationFrame++;
         if (animationFrame >= deathSprites.Length)
             animationFrame = 0;
@@ -74,18 +74,14 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!alive) return;
+    
         if (other.gameObject.layer == LayerMask.NameToLayer("Missile") ||
             other.gameObject.layer == LayerMask.NameToLayer("Invader"))
         {
             alive = false;
-            Kill();
-            //Invoke(nameof(Kill), 1f);
+            GameManager.Instance.OnPlayerKilled(this);
         }
-    }
-
-    private void Kill()
-    {
-        GameManager.Instance.OnPlayerKilled(this);
     }
 
     public void Revive()
