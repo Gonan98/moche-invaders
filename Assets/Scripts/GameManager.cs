@@ -98,7 +98,6 @@ public class GameManager : MonoBehaviour
         position.x = 0f;
         player.transform.position = position;
         player.Revive();
-        //player.gameObject.SetActive(true);
     }
 
     private void GameOver()
@@ -121,7 +120,7 @@ public class GameManager : MonoBehaviour
     public void OnInvaderKilled(Invader invader)
     {
         invader.gameObject.SetActive(false);
-        invaders.IncreaseSpeed();
+        invaders.DecreaseTimer();
 
         SetScore(score + invader.Score);
 
@@ -133,8 +132,6 @@ public class GameManager : MonoBehaviour
     {
         SetLives(lives - 1);
         RemovePlayerIcon();
-        //livesIcon.Remove();
-        //player.gameObject.SetActive(false);
 
         if (lives > 0)
             Invoke(nameof(NewRound), 2f);
