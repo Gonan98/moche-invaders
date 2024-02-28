@@ -244,7 +244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7297550953232091683, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3
+      value: -2.9
       objectReference: {fileID: 0}
     - target: {fileID: 7297550953232091683, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -319,7 +319,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 0.98039216, g: 0.75686276, b: 0.54901963, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.4745098, g: 0.24705882, b: 0.19215687, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -739,7 +739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7297550953232091683, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3
+      value: -2.9
       objectReference: {fileID: 0}
     - target: {fileID: 7297550953232091683, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -874,8 +874,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -824503404, guid: 319b502599d1a82408fd3f21ea9612c9, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: b3484bb87db34d64bab964cbf457036d, type: 3}
+  m_Color: {r: 0.4745098, g: 0.24705882, b: 0.19215687, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -894,8 +894,8 @@ Transform:
   m_GameObject: {fileID: 1301598736}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.75, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 1}
+  m_LocalPosition: {x: 0, y: -3.65, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -915,8 +915,8 @@ MonoBehaviour:
   speed: 2
   bulletPrefab: {fileID: 6140027097942547587, guid: 09cfd0f30401c484385fb18c014c3e6a, type: 3}
   deathSprites:
-  - {fileID: -330093034, guid: 64b4027f7d848574ab7c3bdff69e13f3, type: 3}
-  - {fileID: -1753367679, guid: 7dc347cad26e59c438260d2da72df314, type: 3}
+  - {fileID: 21300000, guid: d039acec41f2b374eb8ad120902b2fe4, type: 3}
+  - {fileID: 21300000, guid: 8da5d0d4ac58430439201350125d9dab, type: 3}
 --- !u!50 &1301598742
 Rigidbody2D:
   serializedVersion: 4
@@ -994,7 +994,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.4745098, g: 0.24705882, b: 0.19215687, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1041,7 +1041,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7297550953232091683, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3
+      value: -2.9
       objectReference: {fileID: 0}
     - target: {fileID: 7297550953232091683, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1169,25 +1169,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrier
       objectReference: {fileID: 0}
-    - target: {fileID: 3189071362113073349, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3256568628889609895, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3427220999109657212, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7297550953232091683, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 7297550953232091683, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3
+      value: -2.9
       objectReference: {fileID: 0}
     - target: {fileID: 7297550953232091683, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1276,7 +1264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.4745098, g: 0.24705882, b: 0.19215687, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1340,10 +1328,8 @@ MonoBehaviour:
   - {fileID: 6202629791543193567, guid: 460f9413cf0c23c4a810a25d41b29585, type: 3}
   - {fileID: 6202629791543193567, guid: 460f9413cf0c23c4a810a25d41b29585, type: 3}
   - {fileID: 4542188344305549793, guid: 072da612e49e6364988fb1aa94ff07ec, type: 3}
-  paddingX: 1
+  paddingX: 1.2
   paddingY: 0.75
-  rows: 5
-  columns: 9
   bulletPrefab: {fileID: 3289074152632886200, guid: bcbdac7f482f3904dab7360686d12e7d, type: 3}
 --- !u!4 &1848070713
 Transform:
@@ -1410,7 +1396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.4745098, g: 0.24705882, b: 0.19215687, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

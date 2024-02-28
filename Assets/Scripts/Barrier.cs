@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Barrier : MonoBehaviour
 {
+    [SerializeField] private GameObject breaker;
     private BoxCollider2D[] colliders;
     private void Awake() {
         colliders = GetComponents<BoxCollider2D>();
@@ -11,6 +12,7 @@ public class Barrier : MonoBehaviour
 
     public void Reset()
     {
+
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(true);
@@ -20,6 +22,8 @@ public class Barrier : MonoBehaviour
         {
             collider.enabled = true;
         }
+        
+        breaker.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -29,6 +33,7 @@ public class Barrier : MonoBehaviour
             {
                 if (!child.gameObject.activeInHierarchy) continue;
 
+                ShowBreaker(child);
                 child.gameObject.SetActive(false);
                 break;
             }
@@ -41,5 +46,19 @@ public class Barrier : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private void ShowBreaker(Transform transform)
+    {
+        breaker.SetActive(true);
+        breaker.transform.position = transform.position;
+        breaker.transform.Translate(new Vector3(0f, 0.2f, 0f));
+
+        Invoke(nameof(HideBreaker), 0.2f);
+    }
+
+    private void HideBreaker()
+    {
+        breaker.SetActive(false);
     }
 }
