@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class Invaders : MonoBehaviour
 {
@@ -10,28 +12,31 @@ public class Invaders : MonoBehaviour
     private float paddingX = 2f;
     [SerializeField]
     private float paddingY = 2f;
-    [SerializeField]
-    private int rows = 6;
-    [SerializeField]
+    private int rows = 5;
     private int columns = 9;
-    private float speed = 0.25f;
-    private float minimumSpeed;
-    private float maxSpeed;
-    public int Rows => rows;
-    public int Columns => columns;
-    public float MaxSpeed => maxSpeed;
-    public float MiniumSpeed => minimumSpeed;
+    private float speed = 0.2f;
+    private int rowIndex = 0;
     private Vector3 direction = Vector3.right;
     private Vector3 initialPosition;
+    private Vector3[] initialPositions;
     [SerializeField]
     private Bullet bulletPrefab;
-    private readonly float bulletSpawnRate = 1f;
-
+    private float bulletSpawnRate = 1f;
+    private Vector3 leftEdge;
+    private Vector3 rightEdge;
+    private float timer = 0f;
+    private float timeCheck = 0.1f;
+    private readonly float minTimeCheck = 0.0075f;
+    private float maxTimeCheck;
+    private bool horizontal = true;
+    private bool allMoved = false;
     private void Awake() 
     {
-        minimumSpeed = speed;
-        maxSpeed = 3f;
+        leftEdge = Camera.main.ViewportToWorldPoint(Vector3.zero);
+        rightEdge = Camera.main.ViewportToWorldPoint(Vector3.right);
         initialPosition = transform.position;
+        initialPositions = new Vector3[rows * columns];
+        maxTimeCheck = timeCheck;
 
         float width = paddingX * (columns - 1);
         float height = paddingY * (rows - 1);
@@ -44,45 +49,90 @@ public class Invaders : MonoBehaviour
             {
                 var invader = Instantiate(prefabs[i], transform);
                 invader.transform.localPosition = new Vector3(center.x + (j * paddingX), center.y + (i * paddingY), 0f);
+                int index = i * columns + j;
+                initialPositions[index] = invader.transform.localPosition;
             }
         }
     }
 
     private void Start()
     {
-        InvokeRepeating(nameof(Attack), bulletSpawnRate, bulletSpawnRate);    
+        InvokeRepeating(nameof(Attack), bulletSpawnRate, bulletSpawnRate);
     }
 
     private void Update() {
-        transform.position += speed * Time.deltaTime * direction;
-        var leftEdge = Camera.main.ViewportToWorldPoint(Vector3.zero);
-        var rightEdge = Camera.main.ViewportToWorldPoint(Vector3.right);
+        timer += Time.deltaTime;
+        if (timer >= timeCheck)
+        {
+            if (horizontal)
+            {
+                MoveHorizontal();
+                if (allMoved)
+                    CheckInvadersMovement();
+            }
+            else
+            {
+                MoveVertical();
+            }
+            timer = 0f;
+        }
+    }
 
+    private void MoveHorizontal()
+    {
+        for (int columnIndex = 0; columnIndex < columns; columnIndex++)
+        {
+            var child = transform.GetChild(rowIndex * columns + columnIndex);
+            child.Translate(speed * direction);
+        }
+
+        rowIndex++;
+        if (rowIndex >= rows)
+        {
+            rowIndex = 0;
+            allMoved = true;
+        }
+    }
+
+    private void MoveVertical()
+    {
+        direction = new Vector3(-direction.x, 0f, 0f);
+
+        for (int columnIndex = 0; columnIndex < columns; columnIndex++)
+        {
+            var child = transform.GetChild(rowIndex * columns + columnIndex);
+            child.Translate(0f, -0.5f, 0f);
+        }
+
+        rowIndex++;
+        if (rowIndex >= rows)
+        {
+            rowIndex = 0;
+            horizontal = true;
+        }
+    }
+
+    private void CheckInvadersMovement()
+    {
         foreach (Transform invader in transform)
         {
             if(!invader.gameObject.activeInHierarchy)
                 continue;
 
-            if (direction == Vector3.right && invader.position.x >= (rightEdge.x - 1f))
+            if (direction == Vector3.right && invader.position.x >= (rightEdge.x - 1))
             {
-                AdvanceRow();
+                horizontal = false;
+                rowIndex = 0;
                 break;
             }
-            else if (direction == Vector3.left && invader.position.x <= (leftEdge.x + 1f))
+            else if (direction == Vector3.left && invader.position.x <= (leftEdge.x + 1))
             {
-                AdvanceRow();
+                horizontal = false;
+                rowIndex = 0;
                 break;
             }
         }
-    }
-
-    private void AdvanceRow()
-    {
-        direction = new Vector3(-direction.x, 0f, 0f);
-
-        Vector3 position = transform.position;
-        position.y -= 0.5f;
-        transform.position = position;
+        allMoved = false;
     }
 
     private void Attack()
@@ -116,18 +166,26 @@ public class Invaders : MonoBehaviour
     public void ResetInvaders()
     {
         direction = Vector2.right;
-        transform.position = initialPosition;
-        speed = minimumSpeed;
+        timeCheck = maxTimeCheck;
+        rowIndex = 0;
 
-        foreach (Transform invader in transform)
-            invader.gameObject.SetActive(true);
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                int index = i * columns + j;
+                var invader = transform.GetChild(index);
+                invader.localPosition = initialPositions[index];
+                invader.gameObject.SetActive(true);
+            }
+        }
     }
 
-    public void IncreaseSpeed()
+    public void DecreaseTimer()
     {
         int invadersAlive = GetAliveCount();
-        float slope = (maxSpeed - minimumSpeed)/(1 - rows * columns);
-        speed = slope * (invadersAlive - 1) + maxSpeed;
+        float slope = (maxTimeCheck - minTimeCheck)/(rows * columns - 1);
+        timeCheck = slope * (invadersAlive - 1) + minTimeCheck;
     }
 
     public void IncreaseBulletSpeed(Bullet bullet)
