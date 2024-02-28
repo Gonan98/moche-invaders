@@ -55,7 +55,19 @@ PrefabInstance:
     - target: {fileID: 3615061112366145419, guid: ade96144846556d4b96f23e7474aaab1, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -878630881, guid: b7be86d273580134097c59abc59b90b5, type: 3}
+      objectReference: {fileID: 21300000, guid: 55d037615e32ad54993bda0dba70c846, type: 3}
+    - target: {fileID: 3615061112366145419, guid: ade96144846556d4b96f23e7474aaab1, type: 3}
+      propertyPath: m_Color.b
+      value: 0.19215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 3615061112366145419, guid: ade96144846556d4b96f23e7474aaab1, type: 3}
+      propertyPath: m_Color.g
+      value: 0.24705882
+      objectReference: {fileID: 0}
+    - target: {fileID: 3615061112366145419, guid: ade96144846556d4b96f23e7474aaab1, type: 3}
+      propertyPath: m_Color.r
+      value: 0.4745098
+      objectReference: {fileID: 0}
     - target: {fileID: 3615061112366145419, guid: ade96144846556d4b96f23e7474aaab1, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -79,18 +91,18 @@ PrefabInstance:
     - target: {fileID: 3964239979192344478, guid: ade96144846556d4b96f23e7474aaab1, type: 3}
       propertyPath: animationSprites.Array.data[0]
       value: 
-      objectReference: {fileID: -878630881, guid: b7be86d273580134097c59abc59b90b5, type: 3}
+      objectReference: {fileID: 21300000, guid: 55d037615e32ad54993bda0dba70c846, type: 3}
     - target: {fileID: 3964239979192344478, guid: ade96144846556d4b96f23e7474aaab1, type: 3}
       propertyPath: animationSprites.Array.data[1]
       value: 
-      objectReference: {fileID: 242434917, guid: de2b8c626042b9645b668e2e7f34db06, type: 3}
+      objectReference: {fileID: 21300000, guid: aca0f41ad086bdb49a141472ce1a50c6, type: 3}
     - target: {fileID: 8154098794776153069, guid: ade96144846556d4b96f23e7474aaab1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.15
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8154098794776153069, guid: ade96144846556d4b96f23e7474aaab1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.15
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8154098794776153069, guid: ade96144846556d4b96f23e7474aaab1, type: 3}
       propertyPath: m_LocalPosition.x

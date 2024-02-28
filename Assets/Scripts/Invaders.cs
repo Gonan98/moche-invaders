@@ -14,7 +14,7 @@ public class Invaders : MonoBehaviour
     private float paddingY = 2f;
     private int rows = 5;
     private int columns = 9;
-    private float speed = 0.2f;
+    private float speed = 0.1f;
     private int rowIndex = 0;
     private Vector3 direction = Vector3.right;
     private Vector3 initialPosition;
@@ -26,7 +26,7 @@ public class Invaders : MonoBehaviour
     private Vector3 rightEdge;
     private float timer = 0f;
     private float timeCheck = 0.1f;
-    private readonly float minTimeCheck = 0.0075f;
+    private readonly float minTimeCheck = 0.005f;
     private float maxTimeCheck;
     private bool horizontal = true;
     private bool allMoved = false;
