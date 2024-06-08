@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
             other.gameObject.layer == LayerMask.NameToLayer("Invader"))
         {
             alive = false;
-            GameManager.Instance.OnPlayerKilled(this);
+            GameManager.Instance.OnPlayerKilled();
         }
     }
 

@@ -8,11 +8,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private Text scoreText;
-    //[SerializeField] private LivesIcon livesIcon;
     [SerializeField] private GameObject bound;
     [SerializeField] private GameObject playerLiveIcon;
     private Player player;
     private Invaders invaders;
+    private Huaco huaco;
     private Barrier[] barriers;
     private int score;
     private int lives;
@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
         invaders = FindObjectOfType<Invaders>();
+        huaco = FindObjectOfType<Huaco>();
         barriers = FindObjectsOfType<Barrier>(); 
 
         NewGame();
@@ -128,7 +129,12 @@ public class GameManager : MonoBehaviour
             NewRound();
     }
 
-    public void OnPlayerKilled(Player player)
+    public void OnHuacoKilled(Huaco huaco)
+    {
+        SetScore(score + huaco.Score);
+    }
+
+    public void OnPlayerKilled()
     {
         SetLives(lives - 1);
         RemovePlayerIcon();
@@ -144,7 +150,7 @@ public class GameManager : MonoBehaviour
         if (invaders.gameObject.activeSelf)
         {
             invaders.gameObject.SetActive(false);
-            OnPlayerKilled(player);
+            OnPlayerKilled();
         }
     }
 }
