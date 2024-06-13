@@ -53,6 +53,7 @@ public class Invader : MonoBehaviour
     }
 
     private void OnEnable() {
+        gameObject.layer = LayerMask.NameToLayer("Invader");
         alive = true;
         spriteRenderer.sprite = animationSprites[0];
     }

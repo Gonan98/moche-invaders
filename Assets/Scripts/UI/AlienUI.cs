@@ -9,8 +9,6 @@ public class AlienUI : MonoBehaviour
     [SerializeField] private Canvas canvas;
     private float timer = 0f;
     private float timerCheck = 0.2f;
-    private Vector3 leftEdge;
-    private Vector3 rightEdge;
     private Vector3 initialPosition;
     private RectTransform rectTransform;
     private Vector3[] canvasCorners = new Vector3[4];

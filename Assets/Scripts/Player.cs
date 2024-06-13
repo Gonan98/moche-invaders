@@ -7,16 +7,16 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private float speed = 2f;
-    [SerializeField]
-    private GameObject bulletPrefab;
-    private GameObject bullet;
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject projectile;
     [SerializeField] private Sprite[] deathSprites;
     private Sprite playerSprite;
     private SpriteRenderer spriteRenderer;
     private bool alive = true;
     private float animationTime = 1f;
     private int animationFrame = 0;
-    // Start is called before the first frame update
+    private bool buffed = false;
+    private bool Buffed => buffed;
 
     private void Awake()
     {
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
 
         transform.position = position;
 
-        if (Input.GetKey(KeyCode.Space) && bullet == null)
+        if (Input.GetKey(KeyCode.Space) && projectile == null)
         {
             Shoot();
         }
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
 
     private void Shoot()
     {
-        bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -88,5 +88,15 @@ public class Player : MonoBehaviour
     {
         alive = true;
         spriteRenderer.sprite = playerSprite;
+    }
+
+    public void SetProjectile(GameObject prefab)
+    {
+        projectilePrefab = prefab;
+    }
+
+    public void SetBuff(bool value)
+    {
+        buffed = value;
     }
 }
