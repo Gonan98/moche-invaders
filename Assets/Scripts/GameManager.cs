@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text scoreText;
     [SerializeField] private GameObject bound;
     [SerializeField] private GameObject playerLiveIcon;
+    [SerializeField] private GameObject playerProjectile;
+    [SerializeField] private GameObject collateralImage;
+    [SerializeField] private GameObject collateralProjectile;
     private Player player;
     private Invaders invaders;
     private Huaco huaco;
@@ -77,6 +80,12 @@ public class GameManager : MonoBehaviour
 
     private void NewRound()
     {
+        var projectiles = FindObjectsOfType<Bullet>();
+
+        foreach (Bullet projectile in projectiles)
+            Destroy(projectile.gameObject);
+
+        huaco.Reset();
         invaders.ResetInvaders();
         invaders.gameObject.SetActive(true);
 
@@ -85,10 +94,6 @@ public class GameManager : MonoBehaviour
             barrier.Reset();
         }
 
-        var projectiles = FindObjectsOfType<Bullet>();
-
-        foreach (Bullet projectile in projectiles)
-            Destroy(projectile.gameObject);
 
         Respawn();
     }
@@ -132,6 +137,8 @@ public class GameManager : MonoBehaviour
     public void OnHuacoKilled(Huaco huaco)
     {
         SetScore(score + huaco.Score);
+        player.SetProjectile(collateralProjectile);
+        collateralImage.SetActive(true);
     }
 
     public void OnPlayerKilled()
@@ -143,6 +150,12 @@ public class GameManager : MonoBehaviour
             Invoke(nameof(NewRound), 2f);
         else
             GameOver();
+    }
+
+    public void OnPlayerShootedCollateral()
+    {
+        player.SetProjectile(playerProjectile);
+        collateralImage.SetActive(false);
     }
 
     public void OnBoundaryReached()
