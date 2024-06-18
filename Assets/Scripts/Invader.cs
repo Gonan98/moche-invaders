@@ -12,7 +12,7 @@ public class Invader : MonoBehaviour
     private float animationTime = 1f;
     private int animationFrame = 0;
     private bool alive = true;
-    private int score = 10;
+    [SerializeField] private int score = 10;
     public int Score => score;
 
     private void Awake() {
