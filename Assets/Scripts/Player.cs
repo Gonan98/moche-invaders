@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,7 +9,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float speed = 2f;
     [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private GameObject projectile;
+    [SerializeField] private GameObject powerUpPrefab;
+    private GameObject projectile;
     [SerializeField] private Sprite[] deathSprites;
     private Sprite playerSprite;
     private SpriteRenderer spriteRenderer;
@@ -16,7 +18,6 @@ public class Player : MonoBehaviour
     private float animationTime = 1f;
     private int animationFrame = 0;
     private bool buffed = false;
-    private bool Buffed => buffed;
 
     private void Awake()
     {
@@ -52,7 +53,12 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space) && projectile == null)
         {
-            Shoot();
+            Shoot(projectilePrefab);
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift) && projectile == null && buffed)
+        {
+            Shoot(powerUpPrefab);
         }
     }
 
@@ -67,9 +73,9 @@ public class Player : MonoBehaviour
         spriteRenderer.sprite = deathSprites[animationFrame];
     }
 
-    private void Shoot()
+    private void Shoot(GameObject prefab)
     {
-        projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        projectile = Instantiate(prefab, transform.position, Quaternion.identity);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -88,11 +94,6 @@ public class Player : MonoBehaviour
     {
         alive = true;
         spriteRenderer.sprite = playerSprite;
-    }
-
-    public void SetProjectile(GameObject prefab)
-    {
-        projectilePrefab = prefab;
     }
 
     public void SetBuff(bool value)

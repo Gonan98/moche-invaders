@@ -1285,7 +1285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   projectilePrefab: {fileID: 6140027097942547587, guid: 09cfd0f30401c484385fb18c014c3e6a, type: 3}
-  projectile: {fileID: 0}
+  powerUpPrefab: {fileID: 2510640546548297166, guid: ed48f221a9e027641b49a31b453ead61, type: 3}
   deathSprites:
   - {fileID: 21300000, guid: d039acec41f2b374eb8ad120902b2fe4, type: 3}
   - {fileID: 21300000, guid: 8da5d0d4ac58430439201350125d9dab, type: 3}

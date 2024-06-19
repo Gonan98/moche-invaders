@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour
     public void OnHuacoKilled(Huaco huaco)
     {
         SetScore(score + huaco.Score);
-        player.SetProjectile(collateralProjectile);
+        player.SetBuff(true);
         collateralImage.SetActive(true);
     }
 
@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
 
     public void OnPlayerShootedCollateral()
     {
-        player.SetProjectile(playerProjectile);
+        player.SetBuff(false);
         collateralImage.SetActive(false);
     }
 
