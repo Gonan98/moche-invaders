@@ -14,7 +14,7 @@ public class Invaders : MonoBehaviour
     private float paddingY = 2f;
     private int rows = 5;
     private int columns = 9;
-    private float speed = 0.1f;
+    private float speed = 0.075f;
     private int rowIndex = 0;
     private Vector3 direction = Vector3.right;
     private Vector3 initialPosition;
@@ -101,7 +101,7 @@ public class Invaders : MonoBehaviour
         for (int columnIndex = 0; columnIndex < columns; columnIndex++)
         {
             var child = transform.GetChild(rowIndex * columns + columnIndex);
-            child.Translate(0f, -0.5f, 0f);
+            child.Translate(0f, -0.25f, 0f);
         }
 
         rowIndex++;

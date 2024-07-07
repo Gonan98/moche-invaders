@@ -240,7 +240,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7297550953232091683, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 7297550953232091683, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -893,7 +893,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f93442af8f10df342ad887f48b5a572f, type: 3}
   - {fileID: 21300000, guid: 78eecf659299bb245b8148c71c8e4a3e, type: 3}
   deathSprite: {fileID: 21300000, guid: d3b8eef12eaccdb41bb6eed9f67b26d6, type: 3}
-  speed: 4
+  speed: 2
 --- !u!58 &828837345
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1106,7 +1106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7297550953232091683, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7297550953232091683, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1386,7 +1386,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: PRESIONA ENTER PARA JUGAR DE NUEVO...
+  m_Text: PRESIONA START PARA JUGAR DE NUEVO
 --- !u!222 &1485240184
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1409,7 +1409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7297550953232091683, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6
+      value: -4.5
       objectReference: {fileID: 0}
     - target: {fileID: 7297550953232091683, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1543,7 +1543,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7297550953232091683, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7297550953232091683, guid: 018b96e3b13179f44aa5e0d430efabf3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1826,7 +1826,7 @@ Transform:
   m_GameObject: {fileID: 1848070711}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
