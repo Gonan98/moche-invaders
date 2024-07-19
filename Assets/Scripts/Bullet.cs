@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
     private float minimumSpeed;
-    private float maxSpeed = 12f;
+    private float maxSpeed = 10f;
     public float MiniumSpeed => minimumSpeed;
     public float MaxSpeed => maxSpeed;
     private float lifeTime = 0f;

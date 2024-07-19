@@ -6,12 +6,13 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject startButton;
+    private AudioSource startAudio;
     private bool starting = false;
     private float timer = 0f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        startAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -35,8 +36,9 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        Invoke(nameof(ChangeScene), 2f);
+        Invoke(nameof(ChangeScene), 3f);
         starting = true;
+        startAudio.Play();
     }
 
     private void ChangeScene()

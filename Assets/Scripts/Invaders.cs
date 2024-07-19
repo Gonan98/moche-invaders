@@ -6,12 +6,9 @@ using UnityEngine.Timeline;
 
 public class Invaders : MonoBehaviour
 {
-    [SerializeField]
-    private Invader[] prefabs;
-    [SerializeField]
-    private float paddingX = 2f;
-    [SerializeField]
-    private float paddingY = 2f;
+    [SerializeField] private Invader[] prefabs;
+    [SerializeField] private float paddingX = 2f;
+    [SerializeField] private float paddingY = 2f;
     private int rows = 5;
     private int columns = 9;
     private float speed = 0.075f;
@@ -119,13 +116,13 @@ public class Invaders : MonoBehaviour
             if(!invader.gameObject.activeInHierarchy)
                 continue;
 
-            if (direction == Vector3.right && invader.position.x >= (rightEdge.x - 1))
+            if (direction == Vector3.right && invader.position.x >= (rightEdge.x - 0.5f))
             {
                 horizontal = false;
                 rowIndex = 0;
                 break;
             }
-            else if (direction == Vector3.left && invader.position.x <= (leftEdge.x + 1))
+            else if (direction == Vector3.left && invader.position.x <= (leftEdge.x + 0.5f))
             {
                 horizontal = false;
                 rowIndex = 0;

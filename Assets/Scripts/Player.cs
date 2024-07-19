@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private float speed = 2f;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private GameObject powerUpPrefab;
+    private AudioSource deathSound;
     private GameObject projectile;
     [SerializeField] private Sprite[] deathSprites;
     private Sprite playerSprite;
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        deathSound = GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerSprite = spriteRenderer.sprite;
     }
@@ -47,7 +49,7 @@ public class Player : MonoBehaviour
 
         Vector2 leftEdge = Camera.main.ViewportToWorldPoint(Vector2.zero);
         Vector2 rightEdge = Camera.main.ViewportToWorldPoint(Vector2.right);
-        position.x = Mathf.Clamp(position.x, leftEdge.x + 1, rightEdge.x - 1);
+        position.x = Mathf.Clamp(position.x, leftEdge.x + 0.5f, rightEdge.x - 0.5f);
 
         transform.position = position;
 
@@ -85,7 +87,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Missile") ||
             other.gameObject.layer == LayerMask.NameToLayer("Invader"))
         {
-            alive = false;
+            Kill();
             GameManager.Instance.OnPlayerKilled();
         }
     }
@@ -94,6 +96,12 @@ public class Player : MonoBehaviour
     {
         alive = true;
         spriteRenderer.sprite = playerSprite;
+    }
+
+    public void Kill()
+    {
+        alive = false;
+        deathSound.Play();
     }
 
     public void SetBuff(bool value)

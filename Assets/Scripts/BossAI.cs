@@ -94,7 +94,7 @@ public class BossAI : MonoBehaviour
         position.x += speed * Time.deltaTime;
         transform.position = position;
 
-        if (position.x - spriteWidth < leftEdge.x || position.x + spriteWidth > rightEdge.x)
+        if (position.x - spriteWidth <= leftEdge.x || position.x + spriteWidth >= rightEdge.x)
         {
             speed *= -1;
             OnChangeDirection();

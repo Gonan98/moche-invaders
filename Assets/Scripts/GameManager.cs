@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -13,12 +14,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject playerProjectile;
     [SerializeField] private GameObject collateralImage;
     [SerializeField] private GameObject collateralProjectile;
+    [SerializeField] private UFO ufo;
     private Player player;
     private Invaders invaders;
     private Huaco huaco;
     private Barrier[] barriers;
     private int score;
     private int lives;
+    bool isBossStage = false;
     public int Score => score;
     public int Lives => lives;
 
@@ -40,7 +43,7 @@ public class GameManager : MonoBehaviour
         player = FindObjectOfType<Player>();
         invaders = FindObjectOfType<Invaders>();
         huaco = FindObjectOfType<Huaco>();
-        barriers = FindObjectsOfType<Barrier>(); 
+        barriers = FindObjectsOfType<Barrier>();
 
         NewGame();
     }
@@ -55,6 +58,7 @@ public class GameManager : MonoBehaviour
     private void NewGame()
     {
         gameOverUI.SetActive(false);
+        bound.SetActive(true);
         SetScore(0);
         SetLives(3);
         GeneratePlayerIcons();
@@ -109,7 +113,14 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         gameOverUI.SetActive(true);
+        bound.SetActive(false);
         invaders.gameObject.SetActive(false);
+
+        if (!isBossStage) return;
+
+        var boss = FindObjectOfType<Boss>();
+        boss.gameObject.SetActive(false);
+        isBossStage = false;
     }
 
     private void SetScore(int score)
@@ -123,6 +134,16 @@ public class GameManager : MonoBehaviour
         this.lives = Mathf.Max(lives, 0);
     }
 
+    private void BossStage()
+    {
+        isBossStage = true;
+        huaco.gameObject.SetActive(false);
+        foreach (var barrier in barriers)
+            barrier.gameObject.SetActive(false);
+        
+        ufo.gameObject.SetActive(true);
+    }
+
     public void OnInvaderKilled(Invader invader)
     {
         invader.gameObject.SetActive(false);
@@ -131,7 +152,7 @@ public class GameManager : MonoBehaviour
         SetScore(score + invader.Score);
 
         if (invaders.GetAliveCount() == 0)
-            NewRound();
+            BossStage();
     }
 
     public void OnHuacoKilled(Huaco huaco)
@@ -147,7 +168,7 @@ public class GameManager : MonoBehaviour
         RemovePlayerIcon();
 
         if (lives > 0)
-            Invoke(nameof(NewRound), 2f);
+            Invoke(nameof(Respawn), 2f);
         else
             GameOver();
     }
@@ -163,7 +184,9 @@ public class GameManager : MonoBehaviour
         if (invaders.gameObject.activeSelf)
         {
             invaders.gameObject.SetActive(false);
-            OnPlayerKilled();
+            player.Kill();
+            SetLives(0);
+            GameOver();
         }
     }
 }

@@ -180,4 +180,18 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 2.5833333
+    functionName: OnArriveComplete
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: 07e9c9182dbadf344b4f2e60a81150bd, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 3.0833333
+    functionName: OnAnimationEnd
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: 07e9c9182dbadf344b4f2e60a81150bd, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

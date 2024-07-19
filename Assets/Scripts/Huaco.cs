@@ -8,6 +8,7 @@ public class Huaco : MonoBehaviour
     [SerializeField] private Sprite[] sprites;
     [SerializeField] private Sprite deathSprite;
     [SerializeField] private float speed = 4f;
+    private AudioSource audioSource;
     private float cycleTime = 15f;
     private int score = 500;
     public int Score => score;
@@ -22,6 +23,7 @@ public class Huaco : MonoBehaviour
     void Start()
     {
         alive = true;
+        audioSource = GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         //sprite = spriteRenderer.sprite;
         Vector3 leftEdge = Camera.main.ViewportToWorldPoint(Vector3.zero);
@@ -117,6 +119,7 @@ public class Huaco : MonoBehaviour
 
     private void Kill()
     {
+        audioSource.Play();
         Despawn();
         GameManager.Instance.OnHuacoKilled(this);
     }

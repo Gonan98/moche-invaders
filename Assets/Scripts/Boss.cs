@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
@@ -10,6 +11,7 @@ public class Boss : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        Invoke(nameof(Grow), 2f);
     }
 
     // Update is called once per frame
@@ -23,5 +25,11 @@ public class Boss : MonoBehaviour
         {
             currentHealth -= 1;
         }
+    }
+
+    void Grow()
+    {
+        transform.DOMoveY(2.75f, 1f);
+        transform.DOScale(new Vector3(0.75f,0.75f), 1).OnComplete(() => GetComponent<BossAI>().enabled = true);
     }
 }

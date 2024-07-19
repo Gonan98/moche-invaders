@@ -9,6 +9,7 @@ public class Invader : MonoBehaviour
     [SerializeField]
     private Sprite deathSprite;
     private SpriteRenderer spriteRenderer;
+    private AudioSource deathSound;
     private float animationTime = 1f;
     private int animationFrame = 0;
     private bool alive = true;
@@ -17,6 +18,7 @@ public class Invader : MonoBehaviour
 
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        deathSound = GetComponent<AudioSource>();
     }
 
     private void Start() {
@@ -38,6 +40,7 @@ public class Invader : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Bullet"))
         {
             spriteRenderer.sprite = deathSprite;
+            deathSound.Play();
             alive = false;
             Invoke(nameof(Kill), 0.2f);
         }
