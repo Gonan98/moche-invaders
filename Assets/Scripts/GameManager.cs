@@ -8,19 +8,23 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     [SerializeField] private GameObject gameOverUI;
+    [SerializeField] private GameObject winnerUI;
     [SerializeField] private Text scoreText;
     [SerializeField] private GameObject bound;
     [SerializeField] private GameObject playerLiveIcon;
     [SerializeField] private GameObject playerProjectile;
     [SerializeField] private GameObject collateralImage;
     [SerializeField] private GameObject collateralProjectile;
-    [SerializeField] private UFO ufo;
+    [SerializeField] private Color primaryColor;
+    [SerializeField] private Color secondaryColor;
     private Player player;
     private Invaders invaders;
     private Huaco huaco;
     private Barrier[] barriers;
+    private UFO ufo;
     private int score;
     private int lives;
+    private bool win = false;
     bool isBossStage = false;
     public int Score => score;
     public int Lives => lives;
@@ -44,25 +48,36 @@ public class GameManager : MonoBehaviour
         invaders = FindObjectOfType<Invaders>();
         huaco = FindObjectOfType<Huaco>();
         barriers = FindObjectsOfType<Barrier>();
+        ufo = FindObjectOfType<UFO>();
 
         NewGame();
     }
 
     private void Update()
     {
-        if (lives <= 0 && Input.GetKeyDown(KeyCode.Return))
+        if ((lives <= 0 || win) && Input.GetKeyDown(KeyCode.Return))
+        {
             NewGame();
+        }
     }
 
 
     private void NewGame()
     {
+        win = false;
+        ufo.gameObject.SetActive(false);
+        UIManager.Instance.ChangeUIColor(primaryColor);
+        player.ChangeColor(primaryColor);
+        Camera.main.backgroundColor = secondaryColor;
         gameOverUI.SetActive(false);
+        winnerUI.SetActive(false);
         bound.SetActive(true);
         SetScore(0);
-        SetLives(3);
+        SetLives(5);
         GeneratePlayerIcons();
         NewRound();
+        //BossStage();
+        //Respawn();
     }
 
     private void GeneratePlayerIcons()
@@ -95,6 +110,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var barrier in barriers)
         {
+            barrier.gameObject.SetActive(true);
             barrier.Reset();
         }
 
@@ -118,9 +134,7 @@ public class GameManager : MonoBehaviour
 
         if (!isBossStage) return;
 
-        var boss = FindObjectOfType<Boss>();
-        boss.gameObject.SetActive(false);
-        isBossStage = false;
+        ResetBoss();
     }
 
     private void SetScore(int score)
@@ -137,6 +151,9 @@ public class GameManager : MonoBehaviour
     private void BossStage()
     {
         isBossStage = true;
+        player.SetBuff(false);
+        collateralImage.SetActive(false);
+        invaders.gameObject.SetActive(false);
         huaco.gameObject.SetActive(false);
         foreach (var barrier in barriers)
             barrier.gameObject.SetActive(false);
@@ -188,5 +205,27 @@ public class GameManager : MonoBehaviour
             SetLives(0);
             GameOver();
         }
+    }
+
+    public void OnBossPhase4()
+    {
+        Camera.main.backgroundColor = primaryColor;
+        player.ChangeColor(secondaryColor);
+        UIManager.Instance.ChangeUIColor(secondaryColor);
+    }
+
+    public void OnBossDefeated()
+    {
+        win = true;
+        winnerUI.SetActive(true);
+        ResetBoss();
+    }
+
+    public void ResetBoss()
+    {
+        var boss = FindObjectOfType<Boss>();
+        boss.Reset();
+        boss.gameObject.SetActive(false);
+        isBossStage = false;
     }
 }

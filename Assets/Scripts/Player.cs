@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private AudioSource deathSound;
     private GameObject projectile;
     [SerializeField] private Sprite[] deathSprites;
+    [SerializeField] private Color secondaryColor;
     private Sprite playerSprite;
     private SpriteRenderer spriteRenderer;
     private bool alive = true;
@@ -78,6 +79,17 @@ public class Player : MonoBehaviour
     private void Shoot(GameObject prefab)
     {
         projectile = Instantiate(prefab, transform.position, Quaternion.identity);
+
+        if (projectile.TryGetComponent<SpriteRenderer>(out var r))
+        {
+            projectile.GetComponent<SpriteRenderer>().color = spriteRenderer.color;
+        }
+        else
+        {
+            var rs = projectile.GetComponentsInChildren<SpriteRenderer>();
+            foreach(SpriteRenderer renderer in rs)
+                renderer.color = spriteRenderer.color;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -107,5 +119,10 @@ public class Player : MonoBehaviour
     public void SetBuff(bool value)
     {
         buffed = value;
+    }
+
+    public void ChangeColor(Color color)
+    {
+        spriteRenderer.color = color;
     }
 }

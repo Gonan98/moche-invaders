@@ -5,18 +5,28 @@ using UnityEngine;
 public class UFO : MonoBehaviour
 {
     [SerializeField] private GameObject boss;
-    private AudioSource audioSource;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void DisableBoss()
+    {
+        boss.SetActive(false);
+    }
+
+    public void Abduct()
+    {
+        animator.SetBool("abduct", true);
     }
 
     public void OnArriveComplete()

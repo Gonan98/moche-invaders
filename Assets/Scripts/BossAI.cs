@@ -6,14 +6,18 @@ public class BossAI : MonoBehaviour
 {
     enum BossPhase
     {
+        Init,
         Phase1,
         Phase2,
-        Phase3
+        Phase3,
+        Phase4,
+        Dead
     };
 
     private Boss boss;
     [SerializeField] private float speed = 4f;
     [SerializeField] private Bullet bulletPrefab;
+    [SerializeField] private Bomb bombPrefab;
     [SerializeField] private Transform[] spawnBullets;
     [SerializeField] private GameObject arm;
     private Animator animator;
@@ -22,19 +26,19 @@ public class BossAI : MonoBehaviour
     private Vector3 leftEdge;
     private Vector3 rightEdge;
     [SerializeField] BossPhase currentPhase;
-    private bool isShooting = false;
     private Vector3 initScale;
+    private BoxCollider2D[] colliders;
 
     // Start is called before the first frame update
     void Start()
     {
+        colliders = GetComponents<BoxCollider2D>();
         initScale = transform.localScale;
         boss = GetComponent<Boss>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         leftEdge = Camera.main.ViewportToWorldPoint(Vector3.zero);
         rightEdge = Camera.main.ViewportToWorldPoint(Vector3.right);
-
         //InvokeRepeating(nameof(Shoot), 0f, 1f);
         spriteWidth = spriteRenderer.bounds.extents.x;
     }
@@ -42,9 +46,11 @@ public class BossAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentPhase == BossPhase.Dead) return;
+
         CheckHealth();
         Move();
-        Perform();
+        //Perform();
     }
 
     private void CheckHealth()
@@ -54,7 +60,10 @@ public class BossAI : MonoBehaviour
             if (currentPhase != BossPhase.Phase1)
             {
                 currentPhase = BossPhase.Phase1;
+                animator.SetBool("explode", false);
+                animator.SetBool("evolution", false);
                 animator.SetBool("attacking", false);
+                StartCoroutine(ShootCoroutine());
             }
         }
         else if (boss.CurrentHealth > boss.MaxHealth * 0.5f)
@@ -73,7 +82,7 @@ public class BossAI : MonoBehaviour
                     });
             }
         }
-        else
+        else if (boss.CurrentHealth > boss.MaxHealth * 0.25f)
         {
             if (currentPhase != BossPhase.Phase3)
             {
@@ -84,6 +93,28 @@ public class BossAI : MonoBehaviour
                         transform.localScale = initScale;
                         StartCoroutine(MultiShootCoroutine());
                     });
+            }
+        }
+        else if (boss.CurrentHealth > 0)
+        {
+            if (currentPhase != BossPhase.Phase4)
+            {
+                currentPhase = BossPhase.Phase4;
+                foreach (var collider in colliders)
+                    collider.enabled = !collider.enabled;
+                
+                transform.DOScale(new Vector3(0.25f,0.25f), 1).OnComplete(() => StartCoroutine(BombShootCoroutine()));
+                animator.SetBool("evolution", true);
+                GameManager.Instance.OnBossPhase4();
+            }
+        }
+        else
+        {
+            if (currentPhase != BossPhase.Dead)
+            {
+                currentPhase = BossPhase.Dead;
+                animator.SetBool("explode", true);
+                GameManager.Instance.OnBossDefeated();
             }
         }
     }
@@ -106,8 +137,6 @@ public class BossAI : MonoBehaviour
         switch (currentPhase)
         {
             case BossPhase.Phase1:
-                if (!isShooting)
-                    StartCoroutine(ShootCoroutine());
                 break;
 
             case BossPhase.Phase2:
@@ -118,14 +147,12 @@ public class BossAI : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("Nothing Happens...");
                 break;
         }
     }
 
     IEnumerator ShootCoroutine()
     {
-        isShooting = true;
         while(currentPhase == BossPhase.Phase1)
         {
             if (Random.value <= 0.5f)
@@ -134,7 +161,6 @@ public class BossAI : MonoBehaviour
             }
             yield return new WaitForSeconds(1f);
         }
-        isShooting = false;
     }
 
     void Shoot()
@@ -144,7 +170,6 @@ public class BossAI : MonoBehaviour
 
     IEnumerator MultiShootCoroutine()
     {
-        isShooting = true;
         while(currentPhase == BossPhase.Phase3)
         {
             if (Random.value <= 0.75f)
@@ -153,7 +178,6 @@ public class BossAI : MonoBehaviour
             }
             yield return new WaitForSeconds(1f);
         }
-        isShooting = false;
     }
 
     void MultiShoot()
@@ -172,6 +196,23 @@ public class BossAI : MonoBehaviour
                 child.gameObject.SetActive(false);    
             }
         }
+    }
+
+    IEnumerator BombShootCoroutine()
+    {
+        while(currentPhase == BossPhase.Phase4)
+        {
+            if (Random.value <= 0.75f)
+            {
+                BombShoot();
+            }
+            yield return new WaitForSeconds(1.25f);
+        }
+    }
+
+    void BombShoot()
+    {
+        Instantiate(bombPrefab, transform.position, Quaternion.identity);
     }
 
     public void EnableArm()
@@ -196,5 +237,10 @@ public class BossAI : MonoBehaviour
     {
         if (currentPhase != BossPhase.Phase2) return;
         animator.SetBool("attacking", false);
+    }
+
+    public void Reset()
+    {
+        currentPhase = BossPhase.Init;
     }
 }
